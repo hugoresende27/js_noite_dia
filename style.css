@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,900&display=swap');
+
+
+* 
+{
+    box-sizing: border-box;
+}
+/*alinhar conteudos ao centro*/
+body
+{
+    background-color: #333;
+    color: #222;
+    font-family: 'Lato','Verdana',sans-serif;
+
+    overflow-x: hidden; /*esconde a barra de navegação do eixo x*/
+    margin: 0;
+}
+
+.main
+{
+    background-color: #fafafa;
+    transform-origin: top left; /*ponto de inicio da rotação*/
+    transition: transform 0.5s linear;
+    /*FORMATAÇÃO PARA O CONTEUDO FICAR CENTRADO E COM PADDING*/
+    width: 100vw;
+    min-height: 100vh;
+    padding: 50px;
+}
+
+.main.show-nav
+{
+    transform:  rotate(-20deg); /*vai dar uma rotação de -20 graus (inclinado para a direita)*/
+}
+
+/*DESENHAR O CIRCULO*/
+.circulo-main
+{
+    position: fixed;
+    top:-100px; /*200px;/*-100px;*/
+    left:-100px;/*200px; /*-100px;*/
+}
+
+.circulo/*top e left -100 com height e width 200 vai criar meio circulo*/
+{
+    background-color: red;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%; /*border radius 50% para ficar em forma de circulo*/
+    position: relative; /*POSIÇÃO PAI*/
+    transition: transform 0.5s linear;
+}
+
+.main.show-nav .circulo
+{
+    transform: rotate(-70deg);/*PARA POSICIONAR O CLOSE BUTTON*/
+}
+
+.circulo button 
+{
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100px;
+    background: transparent;
+    border: 0;
+    font-size: 26px;
+    color: #fff;
+}
+
+.circulo button:focus
+{
+    outline: none;
+}
+
+.circulo button#open
+{
+    left: 60%;
+}
+.circulo button#close
+{
+    top: 60%;
+    transform: rotate(90deg);
+    transform-origin: top left;
+}
+
+.main.show-nav + nav li 
+{
+    transform: translateX(0);
+    transition-delay: 0.3s;
+}
+
+nav 
+{
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    z-index:100;
+}
+
+nav ul 
+{
+    list-style-type: none;
+    padding-left: 30px;
+}
+
+nav ul li 
+{
+    text-transform: uppercase;
+    color: white;
+    margin: 40px 0;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in;
+}
+/*a lista fica com um efeito escada, angulo 45º +/-*/
+nav ul li i 
+{
+    font-size: 20px;
+    margin-right: 10px;
+}
+nav ul li + li 
+{
+    margin-left: 15px;
+    transform: translateX(-150%);
+}
+nav ul li + li +li
+{
+    margin-left: 30px;
+    transform: translateX(-200%);
+}
+
+.conteudo img
+{
+    max-width: 100%;    /*Ajustar a imagem*/
+}
+
+.conteudo 
+{
+    max-width: 1000px;  /*Ajustes responsivos para a div conteudo*/
+    margin: 50px auto;
+}
+
+.conteudo h1 
+{
+    margin: 0;
+}
+.conteudo small 
+{
+    color: #555;
+    font-style: italic;
+}
+.conteudo p
+{
+    color:#333;
+    line-height: 1.5;
+}
+
+@media(max-width: 480px)        /*para ecras mais pequenos*/
+{
+    .main
+    {
+        width: 100vw;
+        
+    }
+    footer 
+    {
+        display: none;
+    };
+}
+
+
+/*estilos do footer */
+
+footer{
+    font-size: 8pt;
+    color: chartreuse;
+    
+    text-align: center;
+    border-top: 1px dashed;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    position: absolute;
+    bottom: 0;
+    
+    
+}
+
+footer a{
+   color: #edf5e1;  /*cor dos links a preto*/
+   text-decoration: none;     /*retira o sublinhado dos links*/
+  
+}
+
+footer a:hover{
+    color: red;
+}
+
+
