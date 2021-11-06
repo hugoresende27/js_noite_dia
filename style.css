@@ -1,159 +1,143 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fruktur&family=Mochiy+Pop+P+One&display=swap');
+:root
+{
+    --left-bg-color:rgba(87,84,236,0.7);
+    --right-bg-color:rgba(43,43,43,0.8);
+    --left-btn-color:rgba(87,83,236,1);
+    --right-btn-color:rgb(239, 243, 8);
 
+    --hover-width:75%;
+    --other-width:25%;
+    --speed: 1000ms;
+}
 
 * 
 {
     box-sizing: border-box;
 }
-/*alinhar conteudos ao centro*/
+
 body
 {
-    background-color: #333;
-    color: #222;
-    font-family: 'Lato','Verdana',sans-serif;
-
-    overflow-x: hidden; /*esconde a barra de navegação do eixo x*/
+    font-family: 'Mochiy Pop P One ',sans-serif;
+    height: 100vh;
+    overflow: hidden;
     margin: 0;
+}
+
+h1
+{
+    font-size: 4rem;
+    color :#fff;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    white-space: nowrap;/*para não mudar as letras para a linha de baixo de modo a caber o texto todo na janela conforme o tamanho da janela*/
+}
+
+.btn
+{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    color: #fff;
+    border: #fff solid 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 15rem;
+    padding: 1.5rem;
+}
+
+.meia.esq .btn:hover
+{
+    background-color: var(--left-btn-color);
+    border-color: var(--left-btn-color);
+}
+.meia.dir .btn:hover
+{
+    background-color: var(--right-btn-color);
+    border-color: var(--right-btn-color);
+    color: black;
 }
 
 .main
 {
-    background-color: #fafafa;
-    transform-origin: top left; /*ponto de inicio da rotação*/
-    transition: transform 0.5s linear;
-    /*FORMATAÇÃO PARA O CONTEUDO FICAR CENTRADO E COM PADDING*/
-    width: 100vw;
-    min-height: 100vh;
-    padding: 50px;
+    position: relative; /*POSICAO PAI NO MAIN*/
+    width: 100%;    
+    height: 100%;
+    background: #333;
 }
 
-.main.show-nav
+.meia
 {
-    transform:  rotate(-20deg); /*vai dar uma rotação de -20 graus (inclinado para a direita)*/
+    position: absolute; /*MEIA COM ABSOLUTE*/
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
 }
 
-/*DESENHAR O CIRCULO*/
-.circulo-main
+.meia.esq
 {
-    position: fixed;
-    top:-100px; /*200px;/*-100px;*/
-    left:-100px;/*200px; /*-100px;*/
+    left:0;/*posição à esq*/
+    background: url('noite.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-
-.circulo/*top e left -100 com height e width 200 vai criar meio circulo*/
+.meia.esq::before
 {
-    background-color: red;
-    height: 200px;
-    width: 200px;
-    border-radius: 50%; /*border radius 50% para ficar em forma de circulo*/
-    position: relative; /*POSIÇÃO PAI*/
-    transition: transform 0.5s linear;
-}
-
-.main.show-nav .circulo
-{
-    transform: rotate(-70deg);/*PARA POSICIONAR O CLOSE BUTTON*/
-}
-
-.circulo button 
-{
-    cursor: pointer;
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 100px;
-    background: transparent;
-    border: 0;
-    font-size: 26px;
-    color: #fff;
+    width: 100%;
+    height: 100%;
+    background-color: var(--left-bg-color);
 }
 
-.circulo button:focus
+.meia.dir
 {
-    outline: none;
+    right: 0;/*posição à direita*/
+    background: url('sol.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.meia.dir::before
+{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--right-bg-color);
+}
+/*Para efeito de transição entre meia esq e meia direita, aplicar a todas estas classes a var em transition*/
+.meia.esq , .meia.dir, .meia.dir::before, .meia.esq::before
+{
+    transition: all var(--speed) ease-in-out;
 }
 
-.circulo button#open
+.hover-left .esq
 {
-    left: 60%;
+    width: var(--hover-width);
 }
-.circulo button#close
+.hover-left .dir
 {
-    top: 60%;
-    transform: rotate(90deg);
-    transform-origin: top left;
+    width: var(--other-width);
 }
-
-.main.show-nav + nav li 
+.hover-right .dir
 {
-    transform: translateX(0);
-    transition-delay: 0.3s;
+    width: var(--hover-width);
 }
-
-nav 
+.hover-right .esq
 {
-    position: fixed;
-    bottom: 40px;
-    left: 0;
-    z-index:100;
+    width: var(--other-width);
 }
 
-nav ul 
-{
-    list-style-type: none;
-    padding-left: 30px;
-}
 
-nav ul li 
-{
-    text-transform: uppercase;
-    color: white;
-    margin: 40px 0;
-    transform: translateX(-100%);
-    transition: transform 0.4s ease-in;
-}
-/*a lista fica com um efeito escada, angulo 45º +/-*/
-nav ul li i 
-{
-    font-size: 20px;
-    margin-right: 10px;
-}
-nav ul li + li 
-{
-    margin-left: 15px;
-    transform: translateX(-150%);
-}
-nav ul li + li +li
-{
-    margin-left: 30px;
-    transform: translateX(-200%);
-}
-
-.conteudo img
-{
-    max-width: 100%;    /*Ajustar a imagem*/
-}
-
-.conteudo 
-{
-    max-width: 1000px;  /*Ajustes responsivos para a div conteudo*/
-    margin: 50px auto;
-}
-
-.conteudo h1 
-{
-    margin: 0;
-}
-.conteudo small 
-{
-    color: #555;
-    font-style: italic;
-}
-.conteudo p
-{
-    color:#333;
-    line-height: 1.5;
-}
 
 @media(max-width: 480px)        /*para ecras mais pequenos*/
 {
@@ -166,6 +150,20 @@ nav ul li + li +li
     {
         display: none;
     };
+}
+
+@media (max-width: 800px)
+{
+    h1 
+    {
+        font-size: 2rem;
+    }
+
+    .btn
+    {
+        padding: 1.2rem;
+        width: 12rem;
+    }
 }
 
 
